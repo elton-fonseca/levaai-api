@@ -34,7 +34,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "Ship\\": "app/ship/",
+            "Autenticacao\\": "app/containers/autenticacao/"
         },
         "classmap": [
             "database/seeds",
