@@ -12,7 +12,7 @@ services:
             - ./nginx/sites/:/etc/nginx/conf.d
             - ./nginx/data/ssl:/etc/nginx/ssl
         ports:
-            - "443:443"
+            - "80:80"
         networks:
             - backend
 
