@@ -18,6 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/aaa', function(){
+Route::middleware('chave.api')->get('/aaa', function(){
     return 'aaaa';
 });

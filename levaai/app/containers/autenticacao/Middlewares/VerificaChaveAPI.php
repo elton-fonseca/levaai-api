@@ -1,31 +1,25 @@
 <?php
+declare(strict_types=1);
 
 namespace Autenticacao\Middlewares;
 
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 
 final class VerificaChaveAPI
 {
     public function handle(Request $request, Closure $next) : Response
     {
-        $tokenValido = \config('api.');
-        $tokenRecebido = $request->header('Api-key');
+        $tokenValido = \config('api.mobile.token');
+        $tokenRecebido = $request->header('Api-token');
 
-        if ($this->tokenInvalido($tokenValido, $tokenRecebido)) {
-            $excecao = new HttpForbidden('Chave de acesso inválida.');
-            $excecao->withErrorCode('chave_invalida');
-
-            throw new $excecao;
+        if ($tokenValido !== $tokenRecebido) {
+            throw new AccessDeniedHttpException("chave-api-invalida");
         }
 
         return $next($request);
-    }
-
-    private function tokenInvalido(string $tokenValido, string $tokenRecebido): bool
-    {
-        return \hash_equals($tokenValido, $tokenValido);
     }
 }
