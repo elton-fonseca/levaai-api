@@ -1,5 +1,18 @@
 version: '3.7'
 services:
+    db-levaai-api:
+        container_name: db-levaai-api
+        image: mysql
+        command: ["--default-authentication-plugin=mysql_native_password"]
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: levaai
+            MYSQL_USER: levaai
+            MYSQL_PASSWORD: levaai
+        networks:
+            - backend
     nginx:
         container_name: nginx-levaai
         restart: always
