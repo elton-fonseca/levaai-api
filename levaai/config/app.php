@@ -174,7 +174,12 @@ return [
         // Ship\Providers\BroadcastServiceProvider::class,
         Ship\Providers\EventServiceProvider::class,
 
-        Autenticacao\Providers\RouteServiceProvider::class
+        Cliente\Providers\RouteServiceProvider::class,
+        Cotacao\Providers\RouteServiceProvider::class,
+        Monitoramento\Providers\RouteServiceProvider::class,
+        Pagamento\Providers\RouteServiceProvider::class,
+        Pedido\Providers\RouteServiceProvider::class,
+        Rastreamento\Providers\RouteServiceProvider::class,
 
     ],
 

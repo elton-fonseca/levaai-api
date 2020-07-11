@@ -26,6 +26,7 @@ trait ApiHandler {
         if ($e instanceof HttpException) {
          return $this->httpException($e);
         }
+        
 
         if ($e instanceof ValidationException) {
           return $this->validationException($e);
@@ -71,6 +72,7 @@ trait ApiHandler {
      */
     protected function validationException(\Throwable $e): JsonResponse
     {
+
         return response()->json($e->errors(), $e->status);
     }
 
