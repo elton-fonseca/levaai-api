@@ -23,6 +23,12 @@ class UsuarioRepository extends EloquentRepository
         $this->model = $usuario;
     }
 
+    /**
+     * Cria um usuário apartir dos dados
+     *
+     * @param array $dados
+     * @return Usuario
+     */
     public function criar(array $dados): Usuario
     {
         $usuario = new Usuario;
@@ -33,5 +39,16 @@ class UsuarioRepository extends EloquentRepository
         $usuario->save();
 
         return $usuario;
+    }
+    
+    /**
+     * Busca usuário por email
+     *
+     * @param string $email
+     * @return Usuario
+     */
+    public function buscarPeloEmail(string $email): ?Usuario
+    {
+        return Usuario::where('email', $email)->first();
     }
 }

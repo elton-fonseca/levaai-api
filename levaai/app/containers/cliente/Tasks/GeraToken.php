@@ -4,7 +4,7 @@ namespace Cliente\Tasks;
 
 use Cliente\Models\Usuario;
 
-class GerarToken
+class GeraToken
 {
     public function executar(Usuario $usuario, string $dispositivo): string
     {

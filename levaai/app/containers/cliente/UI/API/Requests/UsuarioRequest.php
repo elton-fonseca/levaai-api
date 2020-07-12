@@ -23,9 +23,15 @@ class UsuarioRequest extends FormRequest
      */
     public function rules()
     {
+        $regrasEmail = ['required', 'email'];
+
+        if ($this->is('api/cliente')) {
+            $regrasEmail[] = 'unique:Cliente\Models\Usuario,email';
+        }
+        
         return [
             'nome' => ['required'],
-            'email' => ['required', 'email', 'unique:Cliente\Models\Usuario,email'],
+            'email' => $regrasEmail,
             'senha' => ['required'],
             'dispositivo' => ['required']
         ];
