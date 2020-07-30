@@ -1,27 +1,55 @@
 <?php
 
-$container = 'Pedido';
+$container = 'Cotacao';
 
 $artefatos = [
-    'UI\API\Controllers\CadastrarPedidos' => [
-        'Actions' => 'CadastraPedido'
+    'UI\API\Controllers\CotarFrete' => [
+        'Actions' => 'CotaFrete'
     ],
-    'Actions\CadastraPedido' => [
-        'Tasks0' => 'CadastraPedido',
-        'Tasks1' => 'CadastraItemPedido'
+    'Actions\CotaFrete' => [
+        'Tasks0' => 'BuscaBlocos',
+        'Tasks1' => 'CalculaPeso',
+        'Tasks2' => 'CalculaPrecoPeso',
+        'Tasks3' => 'CalculaPrecoAdvaloremEGris',
+        'Tasks4' => 'CalculaDificilAcesso',
+        'Tasks5' => 'CalculaDespachoEColeta',
+        'Tasks6' => 'CalculaPedagio',
     ],
-    'Tasks\CadastraPedido' => [
-        'Repositories' => 'PedidoRepository'
+    'Tasks\BuscaBlocos' => [
+        'Repositories' => 'CidadeRepository',
+        'Repositories' => 'BlocoRepository'
     ],
-    'Repositories\PedidoRepository' => [
-        'Models' => 'Pedido' 
+    'Repositories\CidadeRepository' => [
+        'Models' => 'Cidade' 
     ],
-    'Tasks\CadastraItemPedido' => [
-        'Repositories' => 'ItemPedidoRepository'
+    'Repositories\BlocoRepository' => [
+        'Models' => 'Bloco' 
     ],
-    'Repositories\ItemPedidoRepository' => [
-        'Models' => 'ItemPedido' 
-    ]
+    'Models\Bloco' => [
+        
+    ],
+    'Models\Cidade' => [
+        
+    ],
+    'Tasks\CalculaPeso' => [
+        
+    ],
+    'Tasks\CalculaPrecoPeso' => [
+        
+    ],
+    'Tasks\CalculaPrecoAdvaloremEGris' => [
+        
+    ],
+    'Tasks\CalculaDificilAcesso' => [
+        
+    ],
+    'Tasks\CalculaDespachoEColeta' => [
+        
+    ],
+    'Tasks\CalculaPedagio' => [
+        
+    ],
+
 ];
 
 foreach ($artefatos as $clase => $dependencias) {

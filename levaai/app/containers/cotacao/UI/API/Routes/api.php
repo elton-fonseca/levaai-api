@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/cotacao', function(){return 'cotacao';});
+Route::get('/cotar', 'CotarFrete');
