@@ -10,4 +10,9 @@ class CalculaPrecoAdvaloremEGris
     {
         
     }
+
+    public function executar()
+    {
+        echo "CalculaPrecoAdvaloremEGris";
+    }
 }

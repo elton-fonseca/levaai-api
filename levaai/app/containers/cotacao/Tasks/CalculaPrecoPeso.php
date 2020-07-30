@@ -14,4 +14,9 @@ class CalculaPrecoPeso
     {
         
     }
+
+    public function executar()
+    {
+        echo "CalculaPrecoPeso";
+    }
 }

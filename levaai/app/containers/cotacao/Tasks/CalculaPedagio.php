@@ -14,4 +14,9 @@ class CalculaPedagio
     {
         
     }
+
+    public function executar()
+    {
+        echo "CalculaPedagio";
+    }
 }

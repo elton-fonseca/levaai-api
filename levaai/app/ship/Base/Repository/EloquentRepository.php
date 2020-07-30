@@ -19,7 +19,7 @@ abstract class EloquentRepository implements RepositoryInterface
      */
     public function pegarTodos(int $page = 10)
     {
-        return $this->model->paginate(10);
+        return $this->model->paginate($page);
     }
 
     /**

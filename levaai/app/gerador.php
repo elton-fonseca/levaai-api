@@ -4,7 +4,7 @@ $container = 'Cotacao';
 
 $artefatos = [
     'UI\API\Controllers\CotarFrete' => [
-        'Actions' => 'CotaFrete'
+        'Actions0' => 'CotaFrete'
     ],
     'Actions\CotaFrete' => [
         'Tasks0' => 'BuscaBlocos',
@@ -16,14 +16,14 @@ $artefatos = [
         'Tasks6' => 'CalculaPedagio',
     ],
     'Tasks\BuscaBlocos' => [
-        'Repositories' => 'CidadeRepository',
-        'Repositories' => 'BlocoRepository'
+        'Repositories0' => 'CidadeRepository',
+        'Repositories1' => 'BlocoRepository'
     ],
     'Repositories\CidadeRepository' => [
-        'Models' => 'Cidade' 
+        'Models0' => 'Cidade' 
     ],
     'Repositories\BlocoRepository' => [
-        'Models' => 'Bloco' 
+        'Models1' => 'Bloco' 
     ],
     'Models\Bloco' => [
         
@@ -101,6 +101,11 @@ class $clase
     )
     {
         $atribuicoesConstrutor
+    }
+
+    public function nome() 
+    {
+        //
     }
 }
 EOT;

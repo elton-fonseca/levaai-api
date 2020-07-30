@@ -2,8 +2,6 @@
 
 namespace Cotacao\Tasks;
 
-
-
 class CalculaDificilAcesso
 {
     
@@ -13,5 +11,10 @@ class CalculaDificilAcesso
     )
     {
         
+    }
+
+    public function executar()
+    {
+        echo "CalculaDificilAcesso";
     }
 }

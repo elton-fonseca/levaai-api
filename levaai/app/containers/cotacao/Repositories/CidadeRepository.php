@@ -3,18 +3,22 @@
 namespace Cotacao\Repositories;
 
 use Cotacao\Models\Cidade;
+use Ship\Base\Repository\EloquentRepository;
 
-
-class CidadeRepository
+class CidadeRepository extends EloquentRepository
 {
-    private Cidade $cidadeMode;
-
+    protected $model;
 
     public function __construct(
-        Cidade $cidadeMode
+        Cidade $model
     )
     {
-        $this->cidadeMode = $cidadeMode;
-
+        $this->model = $model;
     }
+
+    public function buscaPorCodigoMunicipio(int $codigo = 4200408)
+    {
+        return $this->model->get();
+    }
+
 }

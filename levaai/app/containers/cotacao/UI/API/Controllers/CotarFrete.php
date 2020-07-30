@@ -3,21 +3,21 @@
 namespace Cotacao\UI\API\Controllers;
 
 use Cotacao\Actions\CotaFrete;
-
+use Illuminate\Http\Request;
 
 class CotarFrete
 {
-    private CotaFrete $cotaFreteActio;
+    private CotaFrete $cotaFreteAction;
 
     public function __construct(
-        CotaFrete $cotaFreteActio
+        CotaFrete $cotaFreteAction
     )
     {
-        $this->cotaFreteActio = $cotaFreteActio;
+        $this->cotaFreteAction = $cotaFreteAction;
     }
 
-    public function __invoke()
+    public function __invoke(Request $request)
     {
-        return 'cccc';
+        return $this->cotaFreteAction->executar($request);
     }
 }

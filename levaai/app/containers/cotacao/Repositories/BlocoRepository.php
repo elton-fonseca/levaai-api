@@ -3,16 +3,16 @@
 namespace Cotacao\Repositories;
 
 use Cotacao\Models\Bloco;
+use Ship\Base\Repository\EloquentRepository;
 
-class BlocoRepository
+class BlocoRepository extends EloquentRepository
 {
-    private Bloco $blocoMode;
+    protected $model;
 
     public function __construct(
-        Bloco $blocoMode
+        Bloco $model
     )
     {
-        $this->blocoMode = $blocoMode;
-
+        $this->model = $model;
     }
 }

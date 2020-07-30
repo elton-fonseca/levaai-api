@@ -14,4 +14,9 @@ class CalculaPeso
     {
         
     }
+
+    public function executar()
+    {
+        echo "CalculaPeso";
+    }
 }
