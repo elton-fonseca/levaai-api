@@ -45,10 +45,15 @@ class CotaFrete
     {
         var_dump($request->all());
 
-        $this->buscaBlocosTask->executar();
-        $this->calculaPesoTask->executar();
-        $this->calculaPrecoPesoTask->executar();
-        $this->calculaPrecoAdvaloremEGrisTask->executar();
+        $blocoDestino = $this->buscaBlocosTask->executar($request->cep_destino);  
+
+        $peso = $this->calculaPesoTask->executar($request->itens, $request->peso_total);
+        $precoPeso = $this->calculaPrecoPesoTask->executar($peso, $blocoDestino);
+
+        $adValoremEGris = $this->calculaPrecoAdvaloremEGrisTask->executar($request->valor_total, $blocoDestino);
+
+        dd($peso, $blocoDestino, $precoPeso, $adValoremEGris);
+
         $this->calculaDificilAcessoTask->executar();
         $this->calculaDespachoEColetaTask->executar();
         $this->calculaPedagioTask->executar();

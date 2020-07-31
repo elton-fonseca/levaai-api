@@ -2,21 +2,20 @@
 
 namespace Cotacao\Tasks;
 
-
-
 class CalculaPeso
 {
-    
-
-    public function __construct(
-        
-    )
+    public function executar(array $itens, float $peso)
     {
-        
-    }
+        $pesoCubado = 0;
+        foreach ($itens as $item) {
+            $pesoCubado += $item['altura'] * $item['largura'] * $item['comprimento'];
+            $pesoCubado *= $item['quantidade'];
+        }
 
-    public function executar()
-    {
-        echo "CalculaPeso";
+        $pesoCubado = $pesoCubado / 100;
+        $pesoCubado = $pesoCubado * 300;
+        $pesoCubado = $pesoCubado / 10000;
+
+        return ($pesoCubado > $peso) ? $pesoCubado : $peso;
     }
 }

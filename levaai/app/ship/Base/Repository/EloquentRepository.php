@@ -28,7 +28,7 @@ abstract class EloquentRepository implements RepositoryInterface
      * @param integer $id
      * @return void
      */
-    public function buscar(int $id)
+    public function buscar($id)
     {
         return $this->model->find($id);
     }

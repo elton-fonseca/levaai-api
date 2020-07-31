@@ -2,6 +2,7 @@
 
 namespace Cotacao\Tasks;
 
+use Cotacao\Models\Bloco;
 use Cotacao\Repositories\BlocoRepository;
 use Cotacao\Repositories\CidadeRepository;
 
@@ -20,12 +21,10 @@ class BuscaBlocos
         $this->cidadeRepository = $cidadeRepository;
     }
 
-    public function executar()
+    public function executar(string $cep): ?Bloco
     {
-        $cidade = $this->cidadeRepository->buscaPorCodigoMunicipio('3504107');
-
-        dd($cidade);
-
-        echo "buscarBloco";
+        $cidade = $this->cidadeRepository->buscaPorCodigoMunicipio($cep);
+        
+        return $this->blocoRepository->buscar($cidade->BLOCO_CID);
     }
 }

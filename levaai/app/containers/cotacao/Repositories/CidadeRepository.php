@@ -16,9 +16,9 @@ class CidadeRepository extends EloquentRepository
         $this->model = $model;
     }
 
-    public function buscaPorCodigoMunicipio(string $codigo)
+    public function buscaPorCodigoMunicipio(string $codigo): ?Cidade
     {
-        return $this->model->where('CODMUN_CID', '=', $codigo)->get();
+        return $this->model->where('CODMUN_CID', '=', $codigo)->first();
     }
 
 }

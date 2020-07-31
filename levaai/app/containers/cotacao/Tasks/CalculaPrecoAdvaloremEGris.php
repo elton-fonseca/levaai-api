@@ -2,17 +2,18 @@
 
 namespace Cotacao\Tasks;
 
+use Cotacao\Models\Bloco;
+
 class CalculaPrecoAdvaloremEGris
 {
-    public function __construct(
-        
-    )
+    public function executar(float $valorTotal, Bloco $blocoDestino)
     {
-        
-    }
+        $adValorem = ($valorTotal * $blocoDestino->av_blo) / 100;
 
-    public function executar()
-    {
-        echo "CalculaPrecoAdvaloremEGris";
+        $gris = ($valorTotal * $blocoDestino->g_blo) / 100;
+
+        $gris = ($gris > $blocoDestino->mg_blo) ? $gris : $blocoDestino->mg_blo;
+
+        return (float) $adValorem + $gris;
     }
 }

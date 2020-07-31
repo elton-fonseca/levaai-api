@@ -1,0 +1,21 @@
+{
+	"cep_origem": "3549904",
+	"cep_destino": "3516200",
+	"valor_total": 250.00,
+	"peso_total": 50,
+	"itens": [
+		{
+			"quantidade": 1,
+			"altura": 80,
+			"largura": 60,
+			"comprimento": 30
+		},
+		{
+			"quantidade": 1,
+			"altura": 80,
+			"largura": 60,
+			"comprimento": 30
+		}
+	]
+}
+
