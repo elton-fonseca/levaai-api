@@ -22,7 +22,7 @@ class BuscaBlocos
 
     public function executar()
     {
-        $cidade = $this->cidadeRepository->buscaPorCodigoMunicipio(123);
+        $cidade = $this->cidadeRepository->buscaPorCodigoMunicipio('3504107');
 
         dd($cidade);
 
