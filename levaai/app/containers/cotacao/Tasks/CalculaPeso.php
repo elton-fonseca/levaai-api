@@ -4,7 +4,7 @@ namespace Cotacao\Tasks;
 
 class CalculaPeso
 {
-    public function executar(array $itens, float $peso)
+    public function executar(array $itens, float $peso): float
     {
         $pesoCubado = 0;
         foreach ($itens as $item) {
