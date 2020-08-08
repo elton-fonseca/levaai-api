@@ -26,6 +26,8 @@ trait ApiHandler {
         if ($e instanceof HttpException) {
          return $this->httpException($e);
         }
+
+        //tratar cepException e CidadeException
         
 
         if ($e instanceof ValidationException) {

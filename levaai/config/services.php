@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'webmania' => [
+        'token' => env('CEP_WEBMANIA_TOKEN'), 
+        'url'   => env('CEP_WEBMANIA_URL', 'https://webmaniabr.com/api')
+    ]
+
 ];

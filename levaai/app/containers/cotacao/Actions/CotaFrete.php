@@ -2,18 +2,21 @@
 
 namespace Cotacao\Actions;
 
-use Cotacao\Tasks\BuscaBlocos;
-use Cotacao\Tasks\CalculaPeso;
-use Cotacao\Tasks\CalculaPrecoPeso;
-use Cotacao\Tasks\CalculaPrecoAdvaloremEGris;
-use Cotacao\Tasks\CalculaDificilAcesso;
-use Cotacao\Tasks\CalculaColeta;
-use Cotacao\Tasks\CalculaPedagio;
+use Cotacao\Models\Cidade;
 use Illuminate\Http\Request;
+use Cotacao\Tasks\BuscaCidade;
+use Cotacao\Tasks\CalculaPeso;
+use Cotacao\Tasks\CalculaPedagio;
+use Cotacao\Tasks\CalculaPrecoPeso;
+use Cotacao\Exceptions\CidadeException;
+use Cotacao\Tasks\CalculaDificilAcesso;
+use Cotacao\Repositories\BlocoRepository;
+use Cotacao\Tasks\CalculaPrecoAdvaloremEGris;
 
 class CotaFrete
 {
-    private BuscaBlocos $buscaBlocosTask;
+    private BuscaCidade $buscaCidadeTask;
+    private BlocoRepository $blocoRepository;
     private CalculaPeso $calculaPesoTask;
     private CalculaPrecoPeso $calculaPrecoPesoTask;
     private CalculaPrecoAdvaloremEGris $calculaPrecoAdvaloremEGrisTask;
@@ -22,30 +25,80 @@ class CotaFrete
 
 
     public function __construct(
-        BuscaBlocos $buscaBlocosTask,
+        BuscaCidade $buscaCidadeTask,
+        BlocoRepository $blocoRepository,
         CalculaPeso $calculaPesoTask,
         CalculaPrecoPeso $calculaPrecoPesoTask,
         CalculaPrecoAdvaloremEGris $calculaPrecoAdvaloremEGrisTask,
         CalculaDificilAcesso $calculaDificilAcessoTask,
-        CalculaColeta $calculaColetaTask,
         CalculaPedagio $calculaPedagioTask
     )
     {
-        $this->buscaBlocosTask = $buscaBlocosTask;
+        $this->buscaCidadeTask = $buscaCidadeTask;
+        $this->blocoRepository = $blocoRepository;
         $this->calculaPesoTask = $calculaPesoTask;
         $this->calculaPrecoPesoTask = $calculaPrecoPesoTask;
         $this->calculaPrecoAdvaloremEGrisTask = $calculaPrecoAdvaloremEGrisTask;
         $this->calculaDificilAcessoTask = $calculaDificilAcessoTask;
-        $this->calculaColetaTask = $calculaColetaTask;
         $this->calculaPedagioTask = $calculaPedagioTask;
     }
 
+    /**
+     * Verifica se o percurso é atendido e se retorna a cotação
+     *
+     * @param Request $request
+     * @return void
+     */
     public function executar(Request $request)
     {
-        $blocoOrigem = $this->buscaBlocosTask->executar($request->cep_origem); 
-        $coleta = (float) $blocoOrigem->coleta_blo; 
+        $cidadeOrigem = $this->buscaCidadeTask->executar($request->cep_origem);
+        $cidadeDestino = $this->buscaCidadeTask->executar($request->cep_destino);
 
-        $blocoDestino = $this->buscaBlocosTask->executar($request->cep_destino);  
+        $this->verificaCidadesAtendidas($cidadeOrigem, $cidadeDestino);
+
+        return $this->calculaBlocoOrigem($cidadeOrigem) + $this->calculaBlocoDestino($cidadeDestino, $request);
+    }
+
+    /**
+     * Verifica se ao menos uma das duas cidades é atendida pela Tadex
+     *
+     * @param Cidade $cidadeOrigem
+     * @param Cidade $cidadeDestino
+     * @return void
+     */
+    private function verificaCidadesAtendidas(Cidade $cidadeOrigem, Cidade $cidadeDestino): void
+    {
+        if ($cidadeOrigem->FILIAL_CID === 'N' || $cidadeDestino->FILIAL_CID === 'N') {
+            throw CidadeException::percursoNaoAtendido();
+        }
+
+        if ($cidadeOrigem->FILIAL_CID === 'P' && $cidadeDestino->FILIAL_CID === 'P') {
+            throw CidadeException::percursoNaoAtendido();
+        }
+    }
+
+    /**
+     * Faz os calculos do bloco de origem
+     *
+     * @param Cidade $cidade
+     * @return float
+     */
+    private function calculaBlocoOrigem(Cidade $cidade): float
+    {
+        $blocoOrigem = $this->blocoRepository->buscar($cidade->BLOCO_CID);  
+
+        return (float) $blocoOrigem->coleta_blo; 
+    }
+
+    /**
+     * Faz os calculos do bloco de destino
+     *
+     * @param Cidade $cidade
+     * @return float
+     */
+    private function calculaBlocoDestino(Cidade $cidade, Request $request): float
+    {
+        $blocoDestino = $this->blocoRepository->buscar($cidade->BLOCO_CID);  
 
         $peso = $this->calculaPesoTask->executar($request->itens, $request->peso_total);
         $precoPeso = $this->calculaPrecoPesoTask->executar($peso, $blocoDestino);
@@ -56,11 +109,6 @@ class CotaFrete
         $adValoremEGris = $this->calculaPrecoAdvaloremEGrisTask->executar($request->valor_total, $blocoDestino);
         $pedagio = $this->calculaPedagioTask->executar($peso, $blocoDestino);
 
-        $total = $precoPeso + $adValoremEGris + $pedagio + $taxaEntrega + $despacho + $coleta;
-
-        dd($total);
-        //dd($peso, $blocoDestino, $precoPeso, $adValoremEGris, $pedagio, $taxaEntrega, $despacho, $coleta);
-
-        $this->calculaDificilAcessoTask->executar();
+        return $precoPeso + $taxaEntrega + $despacho + $adValoremEGris + $pedagio;
     }
 }

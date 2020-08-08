@@ -18,6 +18,8 @@ class CotarFrete
 
     public function __invoke(Request $request)
     {
-        return $this->cotaFreteAction->executar($request);
+        return [
+            'valor' => $this->cotaFreteAction->executar($request)
+        ];
     }
 }

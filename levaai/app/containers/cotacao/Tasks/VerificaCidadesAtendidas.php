@@ -19,7 +19,7 @@ class BuscaBlocos
         $this->cidadeRepository = $cidadeRepository;
     }
 
-    public function executar(string $cepOrigem, string $cepDestino): void
+    public function executar(): void
     {
         $cidadeOrigem = $this->cidadeRepository->buscaPorCodigoMunicipio($cepOrigem);
         $cidadeDestino = $this->cidadeRepository->buscaPorCodigoMunicipio($cepDestino);
