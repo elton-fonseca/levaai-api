@@ -43,9 +43,9 @@ class CalculaPrecoPeso
      *
      * @param [type] $peso
      * @param [type] $custoPorKG
-     * @return void
+     * @return float
      */
-    private function precoExcedente($peso, $custoPorKG)
+    private function precoExcedente($peso, $custoPorKG): float
     {
         $pesoExcedente = $peso - 100;
         $precoExcedente = $pesoExcedente * $custoPorKG;

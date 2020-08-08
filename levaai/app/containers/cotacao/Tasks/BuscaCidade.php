@@ -7,7 +7,6 @@ use Ship\Services\Cep\CepService;
 use Cotacao\Exceptions\CidadeException;
 use Cotacao\Repositories\CidadeRepository;
 
-
 class BuscaCidade
 {
     private CidadeRepository $cidadeRepository;
@@ -21,6 +20,12 @@ class BuscaCidade
         $this->cepService = $cepService;
     }
 
+    /**
+     * Busca cidade com base no cep
+     *
+     * @param string $cep
+     * @return Cidade
+     */
     public function executar(string $cep): Cidade
     {
         $endereco = $this->cepService->consultar($cep);

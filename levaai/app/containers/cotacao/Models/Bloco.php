@@ -11,11 +11,4 @@ class Bloco extends Model
     protected $primaryKey = 'codigo_blo';
 
     public $timestamps = false;
-
-    public function __construct(
-        
-    )
-    {
-        
-    }
 }

@@ -11,11 +11,4 @@ class Cidade extends Model
     protected $primaryKey = 'codigo_cid';
 
     public $timestamps = false;
-
-    public function __construct(
-        
-    )
-    {
-        
-    }
 }

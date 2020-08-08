@@ -4,6 +4,13 @@ namespace Cotacao\Tasks;
 
 class CalculaPeso
 {
+    /**
+     * Retorna o maior peso, cubado ou real
+     *
+     * @param array $itens
+     * @param float $peso
+     * @return float
+     */
     public function executar(array $itens, float $peso): float
     {
         $pesoCubado = 0;

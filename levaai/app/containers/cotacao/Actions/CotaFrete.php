@@ -9,7 +9,6 @@ use Cotacao\Tasks\CalculaPeso;
 use Cotacao\Tasks\CalculaPedagio;
 use Cotacao\Tasks\CalculaPrecoPeso;
 use Cotacao\Exceptions\CidadeException;
-use Cotacao\Tasks\CalculaDificilAcesso;
 use Cotacao\Repositories\BlocoRepository;
 use Cotacao\Tasks\CalculaPrecoAdvaloremEGris;
 
@@ -20,7 +19,6 @@ class CotaFrete
     private CalculaPeso $calculaPesoTask;
     private CalculaPrecoPeso $calculaPrecoPesoTask;
     private CalculaPrecoAdvaloremEGris $calculaPrecoAdvaloremEGrisTask;
-    private CalculaDificilAcesso $calculaDificilAcessoTask;
     private CalculaPedagio $calculaPedagioTask;
 
 
@@ -30,7 +28,6 @@ class CotaFrete
         CalculaPeso $calculaPesoTask,
         CalculaPrecoPeso $calculaPrecoPesoTask,
         CalculaPrecoAdvaloremEGris $calculaPrecoAdvaloremEGrisTask,
-        CalculaDificilAcesso $calculaDificilAcessoTask,
         CalculaPedagio $calculaPedagioTask
     )
     {
@@ -39,7 +36,6 @@ class CotaFrete
         $this->calculaPesoTask = $calculaPesoTask;
         $this->calculaPrecoPesoTask = $calculaPrecoPesoTask;
         $this->calculaPrecoAdvaloremEGrisTask = $calculaPrecoAdvaloremEGrisTask;
-        $this->calculaDificilAcessoTask = $calculaDificilAcessoTask;
         $this->calculaPedagioTask = $calculaPedagioTask;
     }
 

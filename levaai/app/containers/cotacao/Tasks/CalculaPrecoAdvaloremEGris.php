@@ -6,7 +6,14 @@ use Cotacao\Models\Bloco;
 
 class CalculaPrecoAdvaloremEGris
 {
-    public function executar(float $valorTotal, Bloco $blocoDestino)
+    /**
+     * Calcula o preço do AdValores e Gris
+     *
+     * @param float $valorTotal
+     * @param Bloco $blocoDestino
+     * @return float
+     */
+    public function executar(float $valorTotal, Bloco $blocoDestino): float
     {
         $adValorem = ($valorTotal * $blocoDestino->av_blo) / 100;
 
