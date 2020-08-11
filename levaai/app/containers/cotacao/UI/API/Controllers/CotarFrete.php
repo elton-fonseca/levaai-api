@@ -3,7 +3,7 @@
 namespace Cotacao\UI\API\Controllers;
 
 use Cotacao\Actions\CotaFrete;
-use Illuminate\Http\Request;
+use Cotacao\UI\API\Requests\CotacaoRequest;
 
 class CotarFrete
 {
@@ -16,7 +16,7 @@ class CotarFrete
         $this->cotaFreteAction = $cotaFreteAction;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(CotacaoRequest $request)
     {
         return [
             'valor' => $this->cotaFreteAction->executar($request)

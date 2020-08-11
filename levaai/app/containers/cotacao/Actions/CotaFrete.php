@@ -43,9 +43,9 @@ class CotaFrete
      * Verifica se o percurso é atendido e se retorna a cotação
      *
      * @param Request $request
-     * @return void
+     * @return float
      */
-    public function executar(Request $request)
+    public function executar(Request $request): float
     {
         $cidadeOrigem = $this->buscaCidadeTask->executar($request->cep_origem);
         $cidadeDestino = $this->buscaCidadeTask->executar($request->cep_destino);
