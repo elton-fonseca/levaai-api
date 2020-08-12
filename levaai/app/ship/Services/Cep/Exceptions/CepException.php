@@ -2,12 +2,12 @@
 
 namespace Ship\Services\Cep\Exceptions;
 
-use Exception;
+use Illuminate\Validation\ValidationException;
 
-class CepException extends Exception
+class CepException
 {
-    public static function cepNaoEncontrado(): self
+    public static function cepNaoEncontrado(): ValidationException
     {
-        return new self("O Cep não foi encontrado em nosso sistema");
+        return ValidationException::withMessages(['cep' => 'O Cep não foi encontrado em nosso sistema']);
     }
 }

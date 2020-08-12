@@ -1,8 +1,8 @@
 {
-	"cep_origem": "3549904",
-	"cep_destino": "3516200",
-	"valor_total": 250.00,
-	"peso_total": 50,
+	"cep_origem": "12209-000",
+	"cep_destino": "14400-480",
+	"valor_total": 2520.00,
+	"peso_total": 320,
 	"itens": [
 		{
 			"quantidade": 1,
@@ -18,4 +18,3 @@
 		}
 	]
 }
-

@@ -2,17 +2,18 @@
 
 namespace Cotacao\Exceptions;
 
-use Exception;
+use Illuminate\Validation\ValidationException;
 
-class CidadeException extends Exception
+class CidadeException 
 {
     /**
      * Quando uma ou as duas cidades não são atendidas
      *
      * @return self
      */
-    public static function percursoNaoAtendido(): self
+    public static function percursoNaoAtendido(): ValidationException
     {
-        return new self("O percurso ainda não é atendido");
+        return ValidationException::withMessages(['cep' => 'O percurso ainda não é atendido']);
+        
     }
 }

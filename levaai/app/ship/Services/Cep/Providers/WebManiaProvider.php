@@ -46,7 +46,7 @@ class WebManiaProvider implements CepService
 
         $resultado = $response->json();
 
-        if (isset($resultado['error'])) {
+        if (!$resultado || isset($resultado['error'])) {
             throw CepException::cepNaoEncontrado();
         }
        

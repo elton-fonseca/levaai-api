@@ -24,15 +24,15 @@ class CotacaoRequest extends FormRequest
     public function rules()
     {
         return [
-            'cep_origem' => ['required'],
-            'cep_destino' => ['required'],
-            'valor_total' => ['required'],
-            'peso_total' => ['required'],
+            'cep_origem' => ['required', 'regex:/^[0-9]{5}-[0-9]{3}$/'],
+            'cep_destino' => ['required', 'regex:/^[0-9]{5}-[0-9]{3}$/'],
+            'valor_total' => ['required', 'numeric', 'min:0'],
+            'peso_total' => ['required', 'numeric', 'min:0'],
             'itens' => ['required', 'array'],
-            'itens.*.quantidade' => ['required'],
-            'itens.*.altura' => ['required'],
-            'itens.*.largura' => ['required'],
-            'itens.*.comprimento' => ['required'],
+            'itens.*.quantidade' => ['required', 'numeric', 'min:0'],
+            'itens.*.altura' => ['required', 'integer', 'min:0'],
+            'itens.*.largura' => ['required', 'integer', 'min:0'],
+            'itens.*.comprimento' => ['required', 'integer', 'min:0'],
         ];
     }
 }
