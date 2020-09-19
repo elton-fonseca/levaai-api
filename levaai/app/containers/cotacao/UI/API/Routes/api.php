@@ -15,4 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/cotacao', function(){return 'cotacao';});
-Route::get('/cotar', 'CotarFrete');
+Route::post('/cotar', 'CotarFrete');
+Route::post('/verificar-cidades-atendidas', 'VerificarCidadesAtendidas');

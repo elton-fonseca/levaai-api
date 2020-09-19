@@ -10,7 +10,9 @@ use Cotacao\Tasks\CalculaPedagio;
 use Cotacao\Tasks\CalculaPrecoPeso;
 use Cotacao\Exceptions\CidadeException;
 use Cotacao\Repositories\BlocoRepository;
+use Cotacao\Tasks\VerificaCidadesPercurso;
 use Cotacao\Tasks\CalculaPrecoAdvaloremEGris;
+
 
 class CotaFrete
 {
@@ -20,6 +22,7 @@ class CotaFrete
     private CalculaPrecoPeso $calculaPrecoPesoTask;
     private CalculaPrecoAdvaloremEGris $calculaPrecoAdvaloremEGrisTask;
     private CalculaPedagio $calculaPedagioTask;
+    private VerificaCidadesPercurso $verificaCidadesPercursoTask;
 
 
     public function __construct(
@@ -28,7 +31,8 @@ class CotaFrete
         CalculaPeso $calculaPesoTask,
         CalculaPrecoPeso $calculaPrecoPesoTask,
         CalculaPrecoAdvaloremEGris $calculaPrecoAdvaloremEGrisTask,
-        CalculaPedagio $calculaPedagioTask
+        CalculaPedagio $calculaPedagioTask,
+        VerificaCidadesPercurso $verificaCidadesPercursoTask
     )
     {
         $this->buscaCidadeTask = $buscaCidadeTask;
@@ -37,6 +41,7 @@ class CotaFrete
         $this->calculaPrecoPesoTask = $calculaPrecoPesoTask;
         $this->calculaPrecoAdvaloremEGrisTask = $calculaPrecoAdvaloremEGrisTask;
         $this->calculaPedagioTask = $calculaPedagioTask;
+        $this->verificaCidadesPercursoTask = $verificaCidadesPercursoTask;
     }
 
     /**
@@ -50,27 +55,9 @@ class CotaFrete
         $cidadeOrigem = $this->buscaCidadeTask->executar($request->cep_origem);
         $cidadeDestino = $this->buscaCidadeTask->executar($request->cep_destino);
 
-        $this->verificaCidadesAtendidas($cidadeOrigem, $cidadeDestino);
+        $this->verificaCidadesPercursoTask->executar($cidadeOrigem, $cidadeDestino);
 
         return $this->calculaBlocoOrigem($cidadeOrigem) + $this->calculaBlocoDestino($cidadeDestino, $request);
-    }
-
-    /**
-     * Verifica se ao menos uma das duas cidades é atendida pela Tadex
-     *
-     * @param Cidade $cidadeOrigem
-     * @param Cidade $cidadeDestino
-     * @return void
-     */
-    private function verificaCidadesAtendidas(Cidade $cidadeOrigem, Cidade $cidadeDestino): void
-    {
-        if ($cidadeOrigem->FILIAL_CID === 'N' || $cidadeDestino->FILIAL_CID === 'N') {
-            throw CidadeException::percursoNaoAtendido();
-        }
-
-        if ($cidadeOrigem->FILIAL_CID === 'P' && $cidadeDestino->FILIAL_CID === 'P') {
-            throw CidadeException::percursoNaoAtendido();
-        }
     }
 
     /**
